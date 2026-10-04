@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FRIENDSHUB eFootball | Season 5</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07080d;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* ================= HEADER ================= */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(7, 8, 13, 0.95);
+            border-bottom: 1px solid #252733;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: auto;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #ff003c, #7b00ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .logo-text {
+            font-size: 19px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: #ff174d;
+        }
+
+        .menu {
+            display: flex;
+            gap: 28px;
+        }
+
+        .menu a {
+            color: #b8bac5;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .menu a:hover {
+            color: #ff174d;
+        }
+
+        .register-small {
+            background: #ff174d;
+            color: white;
+            padding: 11px 18px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        /* ================= HERO ================= */
+
+        .hero {
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 80% 30%, rgba(255, 0, 65, 0.18), transparent 30%),
+                radial-gradient(circle at 20% 80%, rgba(40, 80, 255, 0.12), transparent 30%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .season-badge {
+            display: inline-block;
+            border: 1px solid #ff174d;
+            color: #ff4169;
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 22px;
+            background: rgba(255, 23, 77, 0.08);
+        }
+
+        .hero h1 {
+            font-size: clamp(45px, 8vw, 85px);
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: -3px;
+            max-width: 800px;
+        }
+
+        .hero h1 span {
+            color: #ff174d;
+        }
+
+        .hero-subtitle {
+            max-width: 620px;
+            color: #a9abb7;
+            font-size: 18px;
+            line-height: 1.7;
+            margin: 28px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #ff174d;
+            color: white;
+            box-shadow: 0 0 25px rgba(255, 23, 77, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 23, 77, 0.55);
+        }
+
+        .btn-secondary {
+            border: 1px solid #373946;
+            color: white;
+            background: #11131b;
+        }
+
+        .btn-secondary:hover {
+            border-color: #ff174d;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            max-width: 1100px;
+            margin: -55px auto 0;
+            position: relative;
+            z-index: 5;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+        }
+
+        .stat-card {
+            background: rgba(20, 21, 29, 0.9);
+            border: 1px solid #292b36;
+            border-radius: 18px;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .stat-icon {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .stat-number {
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: #8f919e;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            max-width: 1200px;
+            margin: auto;
+            padding: 90px 20px 20px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title h2 {
+            font-size: 28px;
+        }
+
+        .section-title span {
+            color: #ff174d;
+            font-size: 13px;
+        }
+
+        /* ================= MATCH ================= */
+
+        .match-card {
+            background: linear-gradient(135deg, #141620, #101117);
+            border: 1px solid #292b36;
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .match-status {
+            color: #ff174d;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .teams {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .team {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .team-flag {
+            display: block;
+            font-size: 45px;
+            margin-bottom: 10px;
+        }
+
+        .vs {
+            color: #686a76;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .match-time {
+            margin-top: 25px;
+            color: #a7a9b5;
+        }
+
+        /* ================= LEADERBOARD ================= */
+
+        .leaderboard {
+            overflow-x: auto;
+            background: #11131a;
+            border: 1px solid #292b36;
+            border-radius: 18px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        th, td {
+            padding: 17px;
+            text-align: left;
+            border-bottom: 1px solid #242630;
+        }
+
+        th {
+            color: #777a88;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 14px;
+        }
+
+        .rank {
+            color: #ff174d;
+            font-weight: bold;
+        }
+
+        .points {
+            font-weight: bold;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            margin-top: 100px;
+            padding: 40px 20px;
+            border-top: 1px solid #252733;
+            text-align: center;
+            color: #737582;
+            font-size: 13px;
+        }
+
+        footer strong {
+            color: #ff174d;
+        }
+
+        /* ================= MOBILE ================= */
+
+        @media (max-width: 750px) {
+
+            .menu {
+                display: none;
+            }
+
+            .register-small {
+                padding: 9px 13px;
+                font-size: 11px;
+            }
+
+            .hero {
+                min-height: 600px;
+            }
+
+            .hero-content {
+                padding-top: 60px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-subtitle {
+                font-size: 15px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                margin-top: -30px;
+            }
+
+            .stat-card {
+                padding: 20px;
+            }
+
+            .teams {
+                gap: 20px;
+            }
+
+            .team {
+                font-size: 14px;
+            }
+
+            .team-flag {
+                font-size: 35px;
+            }
+
+            .section {
+                padding-top: 65px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+    <div class="nav">
+
+        <div class="logo">
+            <div class="logo-icon">⚽</div>
+
+            <div class="logo-text">
+                FRIENDSHUB <span>eFOOTBALL</span>
+            </div>
+        </div>
+
+        <nav class="menu">
+            <a href="#">Home</a>
+            <a href="#">Matches</a>
+            <a href="#">Leaderboard</a>
+            <a href="#">Schedule</a>
+        </nav>
+
+        <a href="#" class="register-small">
+            REGISTER
+        </a>
+
+    </div>
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="season-badge">
+            🇧🇩 BANGLADESH • SEASON 5
+        </div>
+
+        <h1>
+            FRIENDSHUB
+            <span>eFOOTBALL</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Welcome to the next generation of competitive
+            eFootball tournaments. Compete, connect and
+            prove your skills.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#" class="btn btn-primary">
+                ⚡ REGISTER NOW
+            </a>
+
+            <a href="#" class="btn btn-secondary">
+                🏆 VIEW TOURNAMENT
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= STATS ================= -->
+
+<section class="stats">
+
+    <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-number">32</div>
+        <div class="stat-label">REGISTERED PLAYERS</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">⚽</div>
+        <div class="stat-number">48</div>
+        <div class="stat-label">TOTAL MATCHES</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">🏆</div>
+        <div class="stat-number">S5</div>
+        <div class="stat-label">CURRENT SEASON</div>
+    </div>
+
+</section>
+
+
+<!-- ================= UPCOMING MATCH ================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>⚡ Upcoming Match</h2>
+
+        <span>VIEW ALL →</span>
+
+    </div>
+
+    <div class="match-card">
+
+        <div class="match-status">
+            UPCOMING MATCH
+        </div>
+
+        <div class="teams">
+
+            <div class="team">
+
+                <span class="team-flag">🇧🇷</span>
+
+                BRAZIL
+
+            </div>
+
+            <div class="vs">
+                VS
+            </div>
+
+            <div class="team">
+
+                <span class="team-flag">🇦🇷</span>
+
+                ARGENTINA
+
+            </div>
+
+        </div>
+
+        <div class="match-time">
+            📅 01 September • 20:00
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEADERBOARD ================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <h2>🏆 Top Players</h2>
+
+        <span>FULL LEADERBOARD →</span>
+
+    </div>
+
+    <div class="leaderboard">
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>#</th>
+                    <th>Player</th>
+                    <th>Matches</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>Points</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td class="rank">01</td>
+                    <td>Player One 🇧🇩</td>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td class="points">13</td>
+                </tr>
+
+                <tr>
+                    <td class="rank">02</td>
+                    <td>Player Two 🇧🇩</td>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td class="points">12</td>
+                </tr>
+
+                <tr>
+                    <td class="rank">03</td>
+                    <td>Player Three 🇧🇩</td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td class="points">10</td>
+                </tr>
+
+                <tr>
+                    <td class="rank">04</td>
+                    <td>Player Four 🇧🇩</td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>0</td>
+                    <td>2</td>
+                    <td class="points">9</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <p>
+        © 2026 <strong>FRIENDSHUB eFOOTBALL</strong>
+    </p>
+
+    <p>
+        Season 5 • Bangladesh
+    </p>
+
+</footer>
+
+</body>
+</html>
