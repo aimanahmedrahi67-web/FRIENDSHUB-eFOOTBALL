@@ -1,1 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Matches | FRIENDSHUB eFootball</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07080d;
+            color: white;
+        }
+
+        /* HEADER */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(7,8,13,0.96);
+            border-bottom: 1px solid #272934;
+            backdrop-filter: blur(12px);
+        }
+
+        .nav {
+            max-width: 1100px;
+            margin: auto;
+            height: 70px;
+            padding: 0 18px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ff174d;
+        }
+
+        .back {
+            color: #aaa;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        /* HERO */
+
+        .hero {
+            text-align: center;
+            padding: 65px 20px 45px;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    rgba(255,23,77,0.15),
+                    transparent 55%
+                );
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border: 1px solid #ff174d;
+            border-radius: 30px;
+
+            color: #ff4169;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-top: 18px;
+        }
+
+        .hero h1 span {
+            color: #ff174d;
+        }
+
+        .hero p {
+            margin-top: 15px;
+            color: #9295a3;
+        }
+
+        /* CONTAINER */
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        /* LIVE MATCH */
+
+        .live-card {
+            position: relative;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1a1117,
+                    #11131b
+                );
+
+            border: 1px solid #ff174d;
+            border-radius: 22px;
+
+            padding: 30px 20px;
+            text-align: center;
+
+            box-shadow:
+                0 0 30px rgba(255,23,77,0.12);
+        }
+
+        .live-label {
+            display: inline-block;
+
+            color: #ff174d;
+            font-size: 13px;
+            font-weight: bold;
+
+            margin-bottom: 25px;
+        }
+
+        .live-dot {
+            display: inline-block;
+
+            width: 9px;
+            height: 9px;
+
+            background: #ff174d;
+            border-radius: 50%;
+
+            margin-right: 6px;
+
+            box-shadow:
+                0 0 10px #ff174d;
+        }
+
+        .teams {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 45px;
+        }
+
+        .team {
+            width: 130px;
+        }
+
+        .flag {
+            font-size: 45px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .team-name {
+            font-size: 17px;
+            font-weight: bold;
+        }
+
+        .score {
+            font-size: 45px;
+            font-weight: 900;
+        }
+
+        .minute {
+            color: #ff174d;
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        .details {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            background: #ff174d;
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-top: 55px;
+        }
+
+        .section-title {
+            margin-bottom: 18px;
+
+            font-size: 23px;
+        }
+
+        .section-title span {
+            color: #ff174d;
+        }
+
+        /* MATCH CARD */
+
+        .match-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            background: #11131a;
+
+            border: 1px solid #292b36;
+
+            border-radius: 16px;
+
+            padding: 20px;
+
+            margin-bottom: 12px;
+        }
+
+        .match-team {
+            width: 30%;
+
+            font-weight: bold;
+        }
+
+        .match-team.right {
+            text-align: right;
+        }
+
+        .match-score {
+            text-align: center;
+        }
+
+        .match-score strong {
+            font-size: 20px;
+        }
+
+        .match-score small {
+            display: block;
+            color: #777b89;
+            margin-top: 5px;
+        }
+
+        .upcoming {
+            color: #ffc107;
+        }
+
+        .finished {
+            color: #7f8492;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:600px) {
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .teams {
+                gap: 15px;
+            }
+
+            .team {
+                width: 100px;
+            }
+
+            .flag {
+                font-size: 35px;
+            }
+
+            .team-name {
+                font-size: 14px;
+            }
+
+            .score {
+                font-size: 32px;
+            }
+
+            .match-team {
+                font-size: 13px;
+            }
+
+            .match-card {
+                padding: 16px 12px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="nav">
+
+        <div class="logo">
+            FRIENDSHUB <span>eFOOTBALL</span>
+        </div>
+
+        <a href="index.html" class="back">
+            ← Home
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        🇧🇩 SEASON 5
+    </div>
+
+    <h1>
+        MATCH <span>CENTER</span>
+    </h1>
+
+    <p>
+        Live matches, upcoming fixtures and recent results
+    </p>
+
+</section>
+
+
+<div class="container">
+
+
+    <!-- LIVE MATCH -->
+
+    <section>
+
+        <div class="live-card">
+
+            <div class="live-label">
+                <span class="live-dot"></span>
+                LIVE NOW
+            </div>
+
+            <div class="teams">
+
+                <div class="team">
+
+                    <span class="flag">🇧🇩</span>
+
+                    <div class="team-name">
+                        RAHI
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="score">
+                        3 — 2
+                    </div>
+
+                    <div class="minute">
+                        72:14
+                    </div>
+
+                </div>
+
+
+                <div class="team">
+
+                    <span class="flag">🇧🇩</span>
+
+                    <div class="team-name">
+                        PLAYER A
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <a href="#" class="details">
+                MATCH DETAILS →
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- UPCOMING -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            ⚡ <span>Upcoming</span> Matches
+        </h2>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇧🇷 Brazil
+            </div>
+
+            <div class="match-score">
+
+                <strong class="upcoming">
+                    VS
+                </strong>
+
+                <small>
+                    01 Sep • 20:00
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                Argentina 🇦🇷
+            </div>
+
+        </div>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇪🇸 Spain
+            </div>
+
+            <div class="match-score">
+
+                <strong class="upcoming">
+                    VS
+                </strong>
+
+                <small>
+                    02 Sep • 21:00
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                Germany 🇩🇪
+            </div>
+
+        </div>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇵🇹 Portugal
+            </div>
+
+            <div class="match-score">
+
+                <strong class="upcoming">
+                    VS
+                </strong>
+
+                <small>
+                    03 Sep • 20:30
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                England 🏴
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESULTS -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            🏁 Recent <span>Results</span>
+        </h2>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇪🇸 Spain
+            </div>
+
+            <div class="match-score">
+
+                <strong>
+                    3 — 1
+                </strong>
+
+                <small class="finished">
+                    FULL TIME
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                Germany 🇩🇪
+            </div>
+
+        </div>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇧🇷 Brazil
+            </div>
+
+            <div class="match-score">
+
+                <strong>
+                    2 — 2
+                </strong>
+
+                <small class="finished">
+                    FULL TIME
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                Portugal 🇵🇹
+            </div>
+
+        </div>
+
+
+        <div class="match-card">
+
+            <div class="match-team">
+                🇦🇷 Argentina
+            </div>
+
+            <div class="match-score">
+
+                <strong>
+                    4 — 0
+                </strong>
+
+                <small class="finished">
+                    FULL TIME
+                </small>
+
+            </div>
+
+            <div class="match-team right">
+                England 🏴
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<footer style="
+    text-align:center;
+    padding:50px 20px;
+    color:#777b89;
+    border-top:1px solid #252733;
+    margin-top:70px;
+">
+
+    © 2026 FRIENDSHUB eFOOTBALL
+
+</footer>
+
+
+</body>
+</html>
